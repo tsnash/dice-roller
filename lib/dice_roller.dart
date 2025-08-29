@@ -1,6 +1,6 @@
 library;
 
-// A simple function to roll a dice.
+/// Rolls a die. (Placeholder API)
 int roll() {
-  return 6; // chosen by fair dice roll. guaranteed to be random.
+  return 6;
 }
