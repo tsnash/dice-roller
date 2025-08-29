@@ -1,6 +1,7 @@
 name: dice_roller
 description: A new Flutter package.
 version: 0.0.1
+publish_to: 'none' # Prevent accidental publishing to pub.dev
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
