@@ -1,4 +1,4 @@
-library dice_roller;
+library;
 
 // A simple function to roll a dice.
 int roll() {
