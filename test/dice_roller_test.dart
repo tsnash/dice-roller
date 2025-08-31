@@ -16,6 +16,24 @@ void main() {
       expect(() => result.rolls.add(4), throwsUnsupportedError);
       expect(() => result.rolls[0] = 4, throwsUnsupportedError);
     });
+
+    test('can change the number of dice to roll', () {
+      final diceRoller = DiceRoller();
+      diceRoller.setDiceCount(2);
+      expect(diceRoller.roll().rolls, hasLength(2));
+    });
+
+    test('can change the number of sides on a die', () {
+      final diceRoller = DiceRoller();
+      diceRoller.setSides(4);
+      expect(diceRoller.roll().rolls, hasLength(1));
+    });
+
+    test('can chain methods', () {
+      final diceRoller = DiceRoller();
+      diceRoller.setDiceCount(3).setSides(10);
+      expect(diceRoller.roll().rolls, hasLength(3));
+    });
   });
 
   group('RollResult', () {

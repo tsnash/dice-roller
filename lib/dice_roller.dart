@@ -2,17 +2,30 @@ import 'package:dice_roller/roll_result.dart';
 export 'roll_result.dart';
 
 class DiceRoller {
-  const DiceRoller();
+  var _diceCount = 1;
+  var _sides = 6;
 
-  RollResult roll({int count = 3, int sides = 6}) {
-    if (count <= 0) {
-      throw ArgumentError.value(count, 'count', 'must be at least 1 die');
-    }
-    if (sides <= 0) {
+  DiceRoller setDiceCount(int count) {
+    _diceCount = count;
+    return this;
+  }
+
+  DiceRoller setSides(int sides) {
+    _sides = sides;
+    return this;
+  }
+
+  RollResult roll() {
+    if (_diceCount <= 0) {
       throw ArgumentError.value(
-          sides, 'sides', 'die must have at least 1 side');
+          _diceCount, 'count', 'must be at least 1 die');
+    }
+    if (_sides <= 0) {
+      throw ArgumentError.value(
+          _sides, 'sides', 'die must have at least 1 side');
     }
     // Stubbed result; replace with RNG in a follow-up.
-    return RollResult.unmodifiable([1, 2, 3]);
+    final rolls = List.generate(_diceCount, (_) => 1);
+    return RollResult.unmodifiable(rolls);
   }
 }
