@@ -58,20 +58,27 @@ void main() {
 
   group('RollResult', () {
     test('totalValue returns the sum of rolls', () {
-      const result = RollResult.constant([1, 2, 3]);
+      final result = RollResult.constant([1, 2, 3]);
       expect(result.totalValue, 6);
     });
 
     test('values returns the individual rolls', () {
-      const result = RollResult.constant([1, 2, 3]);
+      final result = RollResult.constant([1, 2, 3]);
       expect(result.values, [1, 2, 3]);
     });
 
     test('same roll results are equal', () {
-      const result1 = RollResult.constant([1, 2, 3]);
-      const result2 = RollResult.constant([1, 2, 3]);
+      final result1 = RollResult.constant([1, 2, 3]);
+      final result2 = RollResult.unmodifiable([1, 2, 3]);
       expect(result1, equals(result2));
       expect({result1}, contains(result2));
+    });
+
+    test('RollResult is independent of input list mutations', () {
+      final input = [1, 2, 3];
+      final result = RollResult.constant(input);
+      input[0] = 99;
+      expect(result.values, [1, 2, 3]);
     });
   });
 }

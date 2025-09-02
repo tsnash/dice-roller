@@ -5,9 +5,10 @@ import 'package:flutter/foundation.dart';
 class RollResult {
   RollResult(List<int> rolls) : _rolls = List.unmodifiable(rolls);
 
-  const RollResult.constant(List<int> rolls) : _rolls = rolls;
-
   RollResult.unmodifiable(List<int> rolls) : _rolls = List.unmodifiable(rolls);
+
+  factory RollResult.constant(List<int> rolls) =>
+      RollResult.unmodifiable(rolls);
 
   final List<int> _rolls;
 
