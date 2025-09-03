@@ -1,25 +1,30 @@
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 
+@immutable
 class RollResult {
-  RollResult(List<int> rolls) : rolls = List.unmodifiable(rolls);
+  final List<int> _rolls;
+  late final int _totalValue = _rolls.fold(0, (a, b) => a + b);
 
-  const RollResult.constant(this.rolls);
+  RollResult(List<int> rolls) : _rolls = List.unmodifiable(rolls);
 
-  RollResult.unmodifiable(List<int> rolls) : rolls = List.unmodifiable(rolls);
+  RollResult.unmodifiable(List<int> rolls) : _rolls = List.unmodifiable(rolls);
 
-  final List<int> rolls;
+  factory RollResult.constant(List<int> rolls) =>
+      RollResult.unmodifiable(rolls);
 
-  int get total => rolls.fold(0, (a, b) => a + b);
+  List<int> get values => UnmodifiableListView(_rolls);
+  int get totalValue => _totalValue;
 
   @override
-  int get hashCode => const ListEquality<int>().hash(rolls);
+  int get hashCode => const ListEquality<int>().hash(_rolls);
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is RollResult &&
-          const ListEquality<int>().equals(rolls, other.rolls);
+          const ListEquality<int>().equals(_rolls, other._rolls);
 
   @override
-  String toString() => 'RollResult(rolls: $rolls, total: $total)';
+  String toString() => 'RollResult(values: $_rolls, totalValue: $totalValue)';
 }
