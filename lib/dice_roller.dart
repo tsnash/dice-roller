@@ -1,16 +1,25 @@
 import 'dart:math';
 
 import 'package:dice_roller/roll_result.dart';
+import 'package:dice_roller/src/dnd_dice.dart';
+import 'package:dice_roller/src/die.dart';
 export 'roll_result.dart';
+export 'src/die.dart';
+export 'src/int_die.dart';
+export 'src/string_die.dart';
+export 'src/enum_die.dart';
+export 'src/dnd_dice.dart';
 
 /// A class that simulates rolling dice.
 ///
 /// The [DiceRoller] class is mutable, allowing you to change the number of dice
-/// and sides on the dice.
+/// and the die to be rolled.
 class DiceRoller {
   int _diceCount = 1;
-  int _sides = 6;
+  Die<dynamic> _die = SixSidedDie();
   Random _rng = Random();
+
+  DiceRoller();
 
   /// Seeds the random number generator.
   ///
@@ -34,21 +43,17 @@ class DiceRoller {
     return this;
   }
 
-  /// Sets the number of sides on each die.
-  ///
-  /// Throws an [ArgumentError] if [sides] is less than 2.
-  DiceRoller withTotalSides(int sides) {
-    if (sides < 2) {
-      throw ArgumentError.value(
-          sides, 'sides', 'each die must have at least 2 sides');
-    }
-    _sides = sides;
+  /// Sets the die to be rolled.
+  DiceRoller withDie<T>(Die<T> die) {
+    _die = die;
     return this;
   }
 
   /// Rolls the dice and returns a [RollResult].
-  RollResult roll() {
-    final rolls = List.generate(_diceCount, (_) => _rng.nextInt(_sides) + 1);
+  RollResult<dynamic> roll() {
+    final faces = _die.faces;
+    final rolls =
+        List.generate(_diceCount, (_) => faces[_rng.nextInt(faces.length)]);
     return RollResult.unmodifiable(rolls);
   }
 }
