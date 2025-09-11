@@ -21,7 +21,7 @@ void main() {
       expect(diceRoller.roll().values, hasLength(2));
     });
 
-    test('default die is a d6', () {
+    test('default die is six sided', () {
       final diceRoller = DiceRoller();
       final result = diceRoller.roll();
       expect(result.values, hasLength(1));
@@ -105,7 +105,7 @@ void main() {
     });
   });
 
-  group('D&D Dice', () {
+  group('Default Dice', () {
     test('TwentySidedDie has 20 faces', () {
       expect(TwentySidedDie().faces, hasLength(20));
       expect(TwentySidedDie().faces.first, 1);

@@ -1,14 +1,14 @@
 import 'dart:math';
 
 import 'package:dice_roller/roll_result.dart';
-import 'package:dice_roller/src/dnd_dice.dart';
+import 'package:dice_roller/src/default_dice.dart';
 import 'package:dice_roller/src/die.dart';
 export 'roll_result.dart';
 export 'src/die.dart';
 export 'src/int_die.dart';
 export 'src/string_die.dart';
 export 'src/enum_die.dart';
-export 'src/dnd_dice.dart';
+export 'src/default_dice.dart';
 
 /// A class that simulates rolling dice.
 ///
