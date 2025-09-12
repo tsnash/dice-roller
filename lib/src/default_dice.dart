@@ -26,6 +26,6 @@ class SixSidedDie extends IntDie {
 }
 
 class FourSidedDie extends IntDie {
-  static final List<int> _faces = List.generate(8, (i) => i + 1);
+  static final List<int> _faces = List.generate(4, (i) => i + 1);
   FourSidedDie() : super(_faces);
 }
