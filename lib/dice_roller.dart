@@ -44,7 +44,7 @@ class DiceRoller {
   }
 
   /// Sets the die to be rolled.
-  DiceRoller withDie<T>(Die<T> die) {
+  DiceRoller withDie(Die<dynamic> die) {
     _die = die;
     return this;
   }

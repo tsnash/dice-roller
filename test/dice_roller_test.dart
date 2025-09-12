@@ -1,5 +1,5 @@
 import 'package:dice_roller/dice_roller.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('DiceRoller', () {
@@ -64,6 +64,22 @@ void main() {
     test('negative values throw', () {
       expect(() => DiceRoller().withDiceCount(-1), throwsArgumentError);
     });
+
+    test('seed produces deterministic rolls', () {
+      final r1 = DiceRoller()
+          .seed(42)
+          .withDie(TwentySidedDie())
+          .withDiceCount(3)
+          .roll()
+          .values;
+      final r2 = DiceRoller()
+          .seed(42)
+          .withDie(TwentySidedDie())
+          .withDiceCount(3)
+          .roll()
+          .values;
+      expect(r1, r2);
+    });
   });
 
   group('RollResult', () {
@@ -103,38 +119,28 @@ void main() {
       expect(() => StringDie(['a']), throwsArgumentError);
       expect(() => EnumDie([MyEnum.a]), throwsArgumentError);
     });
+
+    test('die faces are unmodifiable', () {
+      final die = SixSidedDie();
+      expect(() => die.faces.add(7), throwsUnsupportedError);
+    });
   });
 
   group('Default Dice', () {
-    test('TwentySidedDie has 20 faces', () {
-      expect(TwentySidedDie().faces, hasLength(20));
-      expect(TwentySidedDie().faces.first, 1);
-      expect(TwentySidedDie().faces.last, 20);
-    });
-    test('TwelveSidedDie has 12 faces', () {
-      expect(TwelveSidedDie().faces, hasLength(12));
-      expect(TwelveSidedDie().faces.first, 1);
-      expect(TwelveSidedDie().faces.last, 12);
-    });
-    test('TenSidedDie has 10 faces', () {
-      expect(TenSidedDie().faces, hasLength(10));
-      expect(TenSidedDie().faces.first, 1);
-      expect(TenSidedDie().faces.last, 10);
-    });
-    test('EightSidedDie has 8 faces', () {
-      expect(EightSidedDie().faces, hasLength(8));
-      expect(EightSidedDie().faces.first, 1);
-      expect(EightSidedDie().faces.last, 8);
-    });
-    test('SixSidedDie has 6 faces', () {
-      expect(SixSidedDie().faces, hasLength(6));
-      expect(SixSidedDie().faces.first, 1);
-      expect(SixSidedDie().faces.last, 6);
-    });
-    test('FourSidedDie has 4 faces', () {
-      expect(FourSidedDie().faces, hasLength(4));
-      expect(FourSidedDie().faces.first, 1);
-      expect(FourSidedDie().faces.last, 4);
+    final cases = <Die<int>, int>{
+      TwentySidedDie(): 20,
+      TwelveSidedDie(): 12,
+      TenSidedDie(): 10,
+      EightSidedDie(): 8,
+      SixSidedDie(): 6,
+      FourSidedDie(): 4,
+    };
+    cases.forEach((die, len) {
+      test('${die.runtimeType} has $len faces', () {
+        expect(die.faces, hasLength(len));
+        expect(die.faces.first, 1);
+        expect(die.faces.last, len);
+      });
     });
   });
 }

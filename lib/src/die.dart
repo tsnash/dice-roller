@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 @immutable
 abstract class Die<T> {
   final List<T> _faces;
-  Die(List<T> faces) : _faces = List<T>.unmodifiable(faces) {
+  Die(Iterable<T> faces) : _faces = List<T>.unmodifiable(faces) {
     if (_faces.length < 2) {
       throw ArgumentError.value(
         _faces,
@@ -22,7 +22,7 @@ abstract class Die<T> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Die &&
+      other is Die<T> &&
           const ListEquality<Object?>().equals(_faces, other._faces);
 
   @override
