@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 @immutable
 abstract class Die<T> {
   final List<T> _faces;
-  Die(this._faces) {
+  Die(List<T> faces) : _faces = List<T>.unmodifiable(faces) {
     if (_faces.length < 2) {
       throw ArgumentError.value(
         _faces,
@@ -14,8 +14,7 @@ abstract class Die<T> {
     }
   }
 
-  /// The faces of the die.
-  List<T> get faces => UnmodifiableListView<T>(_faces);
+  List<T> get faces => _faces;
 
   @override
   int get hashCode => const ListEquality<Object?>().hash(_faces);

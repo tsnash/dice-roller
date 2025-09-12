@@ -1,5 +1,5 @@
 import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
+import 'package:meta/meta.dart';
 
 @immutable
 class RollResult<T> {
@@ -9,8 +9,7 @@ class RollResult<T> {
 
   RollResult.unmodifiable(List<T> rolls) : _rolls = List.unmodifiable(rolls);
 
-  factory RollResult.constant(List<T> rolls) =>
-      RollResult.unmodifiable(rolls);
+  factory RollResult.constant(List<T> rolls) => RollResult.unmodifiable(rolls);
 
   List<T> get values => UnmodifiableListView(_rolls);
 
@@ -18,8 +17,7 @@ class RollResult<T> {
     if (_rolls.every((r) => r is num)) {
       return _rolls.cast<num>().fold(0, (a, b) => a + b);
     }
-    throw UnsupportedError(
-        'Cannot calculate totalValue for non-numeric type');
+    throw UnsupportedError('Cannot calculate totalValue for non-numeric type');
   }
 
   @override
