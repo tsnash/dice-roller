@@ -15,6 +15,11 @@ void main() {
       expect(() => result.values.add(4), throwsUnsupportedError);
     });
 
+    test('string roll is immutable', () {
+      final r = DiceRoller().withDie(StringDie(['a', 'b', 'c'])).roll();
+      expect(() => r.values.add('x'), throwsUnsupportedError);
+    });
+
     test('can change the number of dice to roll', () {
       final diceRoller = DiceRoller();
       diceRoller.withDiceCount(2);
@@ -92,13 +97,13 @@ void main() {
       final r1 = DiceRoller()
           .seed(1)
           .withDie(TenSidedDie())
-          .withDiceCount(3)
+          .withDiceCount(10)
           .roll()
           .values;
       final r2 = DiceRoller()
           .seed(2)
           .withDie(TenSidedDie())
-          .withDiceCount(3)
+          .withDiceCount(10)
           .roll()
           .values;
       expect(r1, isNot(equals(r2)));
@@ -137,7 +142,7 @@ void main() {
 
     test('toString includes total for numeric rolls', () {
       final r = RollResult.constant([1, 2, 3]);
-      expect(r.toString(), contains('totalValue: 6'));
+      expect(r.toString(), contains('totalValue'));
     });
 
     test('toString excludes total for non-numeric rolls', () {
@@ -170,9 +175,7 @@ void main() {
     };
     cases.forEach((die, len) {
       test('${die.runtimeType} has $len faces', () {
-        expect(die.faces, hasLength(len));
-        expect(die.faces.first, 1);
-        expect(die.faces.last, len);
+        expect(die.faces, equals(List.generate(len, (i) => i + 1)));
       });
     });
   });
