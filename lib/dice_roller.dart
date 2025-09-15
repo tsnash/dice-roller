@@ -14,6 +14,9 @@ export 'src/default_dice.dart';
 ///
 /// The [DiceRoller] class is mutable, allowing you to change the number of dice
 /// and the die to be rolled.
+///
+/// Note: `roll()` returns `RollResult<dynamic>`. If the die's faces are not
+/// numeric, accessing `totalValue` on the result will throw.
 class DiceRoller {
   int _diceCount = 1;
   Die<dynamic> _die = SixSidedDie();
@@ -52,8 +55,8 @@ class DiceRoller {
   /// Rolls the dice and returns a [RollResult].
   RollResult<dynamic> roll() {
     final faces = _die.faces;
-    final rolls =
-        List.generate(_diceCount, (_) => faces[_rng.nextInt(faces.length)]);
+    final length = faces.length;
+    final rolls = List.generate(_diceCount, (_) => faces[_rng.nextInt(length)]);
     return RollResult.unmodifiable(rolls);
   }
 }

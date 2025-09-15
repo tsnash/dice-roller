@@ -19,7 +19,8 @@ class RollResult<T> {
     if (_rolls.every((r) => r is num)) {
       return _rolls.cast<num>().fold<num>(0, (a, b) => a + b);
     }
-    throw UnsupportedError('Cannot calculate totalValue for non-numeric type');
+    throw UnsupportedError(
+        'Cannot calculate totalValue for non-numeric type (T=${T.toString()})');
   }
 
   @override
@@ -32,7 +33,10 @@ class RollResult<T> {
           const ListEquality<Object?>().equals(_rolls, other._rolls);
 
   @override
-  String toString() => _rolls.every((r) => r is num)
-      ? 'RollResult(values: $_rolls, totalValue: $totalValue)'
-      : 'RollResult(values: $_rolls)';
+  String toString() {
+    final isNumeric = _rolls.every((r) => r is num);
+    if (!isNumeric) return 'RollResult(values: $_rolls)';
+    final total = _rolls.cast<num>().fold<num>(0, (a, b) => a + b);
+    return 'RollResult(values: $_rolls, totalValue: $total)';
+  }
 }

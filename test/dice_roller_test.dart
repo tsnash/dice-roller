@@ -80,6 +80,29 @@ void main() {
           .values;
       expect(r1, r2);
     });
+
+    test('can roll enum dice', () {
+      final diceRoller = DiceRoller().withDie(EnumDie(MyEnum.values));
+      final result = diceRoller.roll();
+      expect(result.values, hasLength(1));
+      expect(result.values.first, isIn(MyEnum.values));
+    });
+
+    test('different seeds produce different rolls', () {
+      final r1 = DiceRoller()
+          .seed(1)
+          .withDie(TenSidedDie())
+          .withDiceCount(3)
+          .roll()
+          .values;
+      final r2 = DiceRoller()
+          .seed(2)
+          .withDie(TenSidedDie())
+          .withDiceCount(3)
+          .roll()
+          .values;
+      expect(r1, isNot(equals(r2)));
+    });
   });
 
   group('RollResult', () {
@@ -110,6 +133,16 @@ void main() {
       final result = RollResult.constant(input);
       input[0] = 99;
       expect(result.values, [1, 2, 3]);
+    });
+
+    test('toString includes total for numeric rolls', () {
+      final r = RollResult.constant([1, 2, 3]);
+      expect(r.toString(), contains('totalValue: 6'));
+    });
+
+    test('toString excludes total for non-numeric rolls', () {
+      final r = RollResult.constant(['a', 'b']);
+      expect(r.toString(), isNot(contains('totalValue')));
     });
   });
 
