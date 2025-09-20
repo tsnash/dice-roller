@@ -1,8 +1,8 @@
 import 'dart:math';
 
-import 'package:dice_roller/roll_result.dart';
-import 'package:dice_roller/src/default_dice.dart';
-import 'package:dice_roller/src/die.dart';
+import 'roll_result.dart';
+import 'src/default_dice.dart';
+import 'src/die.dart';
 export 'roll_result.dart';
 export 'src/die.dart';
 export 'src/int_die.dart';

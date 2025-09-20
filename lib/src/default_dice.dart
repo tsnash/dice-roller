@@ -1,4 +1,4 @@
-import 'package:dice_roller/src/int_die.dart';
+import 'int_die.dart';
 
 class TwentySidedDie extends IntDie {
   static final List<int> _faces = List.generate(20, (i) => i + 1);

@@ -1,4 +1,4 @@
-import 'package:dice_roller/src/die.dart';
+import 'die.dart';
 
 /// A die whose faces are strings.
 class StringDie extends Die<String> {
