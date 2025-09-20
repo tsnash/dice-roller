@@ -27,6 +27,7 @@ Before finalizing any feature or publishing a new version, the agent must perfor
     ```bash
     dart pub global run pana ~/tmp/mypkg
     ```
+1.  **Verify Version:** Ensure the version in `pubspec.yaml` has been updated appropriately for the changes being published.
 
 ### Code Generation
 
