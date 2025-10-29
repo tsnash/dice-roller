@@ -1,6 +1,9 @@
 name: dice_roller
-description: A new Flutter package.
+description: Simulate standard and custom dice rolls in Dart/Flutter.
+license: MIT
 version: 0.0.1
+homepage: https://github.com/tsnash/dice-roller
+issue_tracker: https://github.com/tsnash/dice-roller/issues
 publish_to: 'none' # Prevent accidental publishing to pub.dev
 
 environment:
