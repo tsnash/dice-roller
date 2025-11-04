@@ -30,7 +30,7 @@ class RollResult<T> {
       return _rolls.cast<num>().fold<num>(0, (a, b) => a + b);
     }
     throw UnsupportedError(
-        'Cannot calculate totalValue for non-numeric type (T=${T.toString()})');
+        'Cannot calculate totalValue because at least one roll value was not numeric');
   }
 
   @override
