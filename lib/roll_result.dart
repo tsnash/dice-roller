@@ -1,26 +1,32 @@
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
+/// The result of a dice roll.
 @immutable
 class RollResult<T> {
   final List<T> _rolls;
 
+  /// Creates a new [RollResult] with the given rolls.
+  ///
+  /// The rolls are stored in an unmodifiable list.
   RollResult(Iterable<T> rolls) : _rolls = List.unmodifiable(rolls);
 
-  RollResult.unmodifiable(Iterable<T> rolls)
-      : _rolls = List.unmodifiable(rolls);
-
-  factory RollResult.constant(Iterable<T> rolls) =>
-      RollResult.unmodifiable(rolls);
-
+  /// The values of the individual rolls.
+  ///
+  /// Returns an unmodifiable list.
   List<T> get values => _rolls;
 
+  /// The sum of the values of the rolls.
+  ///
+  /// Returns `0` if the rolls list is empty.
+  ///
+  /// Throws an [UnsupportedError] if there are non-numeric rolls.
   num get totalValue {
     if (_rolls.every((r) => r is num)) {
       return _rolls.cast<num>().fold<num>(0, (a, b) => a + b);
     }
     throw UnsupportedError(
-        'Cannot calculate totalValue for non-numeric type (T=${T.toString()})');
+        'Cannot calculate totalValue because at least one roll value was not numeric');
   }
 
   @override
@@ -34,9 +40,11 @@ class RollResult<T> {
 
   @override
   String toString() {
-    final isNumeric = _rolls.every((r) => r is num);
-    if (!isNumeric) return 'RollResult(values: $_rolls)';
-    final total = _rolls.cast<num>().fold<num>(0, (a, b) => a + b);
-    return 'RollResult(values: $_rolls, totalValue: $total)';
+    try {
+      final total = totalValue;
+      return 'RollResult(values: $_rolls, totalValue: $total)';
+    } on UnsupportedError {
+      return 'RollResult(values: $_rolls)';
+    }
   }
 }
