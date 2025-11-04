@@ -9,14 +9,11 @@ publish_to: 'none' # Prevent accidental publishing to pub.dev
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
-  flutter: '>=3.0.0'
 
 dependencies:
-  flutter:
-    sdk: flutter
   collection: ^1.19.1
   meta: ^1.16.0
 
 dev_dependencies:
   test:
-  flutter_lints: ^6.0.0
+  lints: ^4.0.0

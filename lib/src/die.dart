@@ -1,9 +1,16 @@
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
+/// A class that represents a die.
+///
+/// A [Die] has a list of [faces], each of which is of type [T].
 @immutable
 abstract class Die<T> {
   final List<T> _faces;
+
+  /// Creates a die with the given faces.
+  ///
+  /// A die must have at least two faces.
   Die(Iterable<T> faces) : _faces = List<T>.unmodifiable(faces) {
     if (_faces.length < 2) {
       throw ArgumentError.value(
@@ -14,6 +21,7 @@ abstract class Die<T> {
     }
   }
 
+  /// The faces of the die.
   List<T> get faces => _faces;
 
   @override
