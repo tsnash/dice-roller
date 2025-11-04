@@ -92,6 +92,6 @@ class DiceRoller {
     final faces = _die.faces;
     final length = faces.length;
     final rolls = List.generate(_diceCount, (_) => faces[_rng.nextInt(length)]);
-    return RollResult.unmodifiable(rolls);
+    return RollResult(rolls);
   }
 }

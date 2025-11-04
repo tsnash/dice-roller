@@ -7,20 +7,20 @@ class RollResult<T> {
   final List<T> _rolls;
 
   /// Creates a new [RollResult] with the given rolls.
+  ///
+  /// The rolls are stored in an unmodifiable list.
   RollResult(Iterable<T> rolls) : _rolls = List.unmodifiable(rolls);
 
-  /// Creates a new [RollResult] with the given rolls.
-  ///
-  /// This is the same as the default constructor.
-  RollResult.unmodifiable(Iterable<T> rolls)
-      : _rolls = List.unmodifiable(rolls);
-
   /// The values of the individual rolls.
+  ///
+  /// Returns an unmodifiable list.
   List<T> get values => _rolls;
 
   /// The sum of the values of the rolls.
   ///
-  /// Throws an [UnsupportedError] if the rolls are not numeric.
+  /// Returns `0` if the rolls list is empty.
+  ///
+  /// Throws an [UnsupportedError] if there are non-numeric rolls.
   num get totalValue {
     if (_rolls.every((r) => r is num)) {
       return _rolls.cast<num>().fold<num>(0, (a, b) => a + b);
