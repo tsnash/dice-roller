@@ -44,9 +44,11 @@ class RollResult<T> {
 
   @override
   String toString() {
-    final isNumeric = _rolls.every((r) => r is num);
-    if (!isNumeric) return 'RollResult(values: $_rolls)';
-    final total = _rolls.cast<num>().fold<num>(0, (a, b) => a + b);
-    return 'RollResult(values: $_rolls, totalValue: $total)';
+    try {
+      final total = totalValue;
+      return 'RollResult(values: $_rolls, totalValue: $total)';
+    } on UnsupportedError {
+      return 'RollResult(values: $_rolls)';
+    }
   }
 }
