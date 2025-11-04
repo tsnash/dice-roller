@@ -13,7 +13,7 @@ dependencies:
   dice_roller: ^0.0.1
 ```
 
-Then, run `flutter pub get` to install the package.
+Then, run `dart pub get` (or `flutter pub get` if using Flutter) to install the package.
 
 ## Usage
 
