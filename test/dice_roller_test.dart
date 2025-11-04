@@ -112,22 +112,22 @@ void main() {
 
   group('RollResult', () {
     test('totalValue returns the sum of rolls', () {
-      final result = RollResult.constant([1, 2, 3]);
+      final result = RollResult.unmodifiable([1, 2, 3]);
       expect(result.totalValue, 6);
     });
 
     test('totalValue throws for non-numeric types', () {
-      final result = RollResult.constant(['a', 'b', 'c']);
+      final result = RollResult.unmodifiable(['a', 'b', 'c']);
       expect(() => result.totalValue, throwsUnsupportedError);
     });
 
     test('values returns the individual rolls', () {
-      final result = RollResult.constant([1, 2, 3]);
+      final result = RollResult.unmodifiable([1, 2, 3]);
       expect(result.values, [1, 2, 3]);
     });
 
     test('same roll results are equal', () {
-      final result1 = RollResult.constant([1, 2, 3]);
+      final result1 = RollResult.unmodifiable([1, 2, 3]);
       final result2 = RollResult.unmodifiable([1, 2, 3]);
       expect(result1, equals(result2));
       expect({result1}, contains(result2));
@@ -135,18 +135,18 @@ void main() {
 
     test('RollResult is independent of input list mutations', () {
       final input = [1, 2, 3];
-      final result = RollResult.constant(input);
+      final result = RollResult.unmodifiable(input);
       input[0] = 99;
       expect(result.values, [1, 2, 3]);
     });
 
     test('toString includes total for numeric rolls', () {
-      final r = RollResult.constant([1, 2, 3]);
+      final r = RollResult.unmodifiable([1, 2, 3]);
       expect(r.toString(), contains('totalValue'));
     });
 
     test('toString excludes total for non-numeric rolls', () {
-      final r = RollResult.constant(['a', 'b']);
+      final r = RollResult.unmodifiable(['a', 'b']);
       expect(r.toString(), isNot(contains('totalValue')));
     });
   });

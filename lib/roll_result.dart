@@ -15,10 +15,6 @@ class RollResult<T> {
   RollResult.unmodifiable(Iterable<T> rolls)
       : _rolls = List.unmodifiable(rolls);
 
-  /// Creates a new constant [RollResult] with the given rolls.
-  factory RollResult.constant(Iterable<T> rolls) =>
-      RollResult.unmodifiable(rolls);
-
   /// The values of the individual rolls.
   List<T> get values => _rolls;
 
