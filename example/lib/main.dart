@@ -29,16 +29,19 @@ void main() {
   var catanDiceGameDie = EnumDie(CatanDieFace.values);
   var catanDiceRoller =
       DiceRoller().seed(173).withDiceCount(6).withDie(catanDiceGameDie);
-  var turnRolls = 3;
+  const maxAttempts = 3;
+  var attempt = 0;
+  var built = false;
 
-  while (turnRolls > 0) {
-    var roll = catanDiceRoller.roll().values;
+  while (attempt < maxAttempts) {
+    attempt++;
+    final roll = catanDiceRoller.roll().values;
     var lumber = 0;
     var brick = 0;
     var wool = 0;
     var grain = 0;
-    for (int i = 0; i < 6; i++) {
-      switch (roll[i]) {
+    for (final face in roll) {
+      switch (face) {
         case CatanDieFace.brick:
           brick++;
           break;
@@ -56,14 +59,14 @@ void main() {
     }
     if (lumber > 1 && brick > 1 && wool > 0 && grain > 0) {
       print('could build a road and a settlement this roll');
+      built = true;
       break;
     }
     print('could not build a road and a settlement this roll');
-    turnRolls--;
   }
-  turnRolls > 0
-      ? print('built road and settlement on roll ${4 - turnRolls}')
-      : print('built something else this turn');
+  built
+      ? print('built road and settlement on roll $attempt')
+      : print('had to build something else this turn');
 
   // int die example - clue carnival dice 4, 5, 5, 5, 6, 6
   var clueCarnivalDie = IntDie([4, 5, 5, 5, 6, 6]);
