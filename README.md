@@ -24,13 +24,13 @@ import 'package:dice_roller/dice_roller.dart';
 
 void main() {
   // Create a standard 6-sided die.
-  final die = Die(6);
+  final d6 = SixSidedDie();
 
   // Roll the die.
-  final rollResult = die.roll();
+  final rollResult = DiceRoller().withDie(d6).roll();
 
   // Print the result.
-  print('You rolled a ${rollResult.value}');
+  print('You rolled a ${rollResult.totalValue}');
 }
 ```
 
