@@ -2,8 +2,10 @@ import 'package:dice_roller/dice_roller.dart';
 
 void main() {
   // default dice example
-  print('\nSimulating 5 D&D-style attack rolls without bonuses or damage calculation:');
-  print('Note: seeded to produce hit, miss, critical hit, and critical miss outcomes.');
+  print(
+      '\nSimulating 5 D&D-style attack rolls without bonuses or damage calculation:');
+  print(
+      'Note: seeded to produce hit, miss, critical hit, and critical miss outcomes.');
   final attackRoller = DiceRoller().seed(30898).withDie(TwentySidedDie());
   const criticalMiss = 1;
   const threat = 20;
@@ -11,24 +13,32 @@ void main() {
   const totalAttacks = 5;
 
   for (int i = 0; i < totalAttacks; i++) {
-    final attackRoll = attackRoller.roll().totalValue as int;
-    switch (attackRoll) {
+    final attackRoll = attackRoller.roll();
+    switch (attackRoll.totalValue as int) {
       case criticalMiss:
-        print('critical miss');
+        print('critical miss (${attackRoll.toString()})');
         break;
       case threat:
         // D&D-style confirmation roll to determine if threat becomes critical hit
-        final confirm = attackRoller.roll().totalValue as int;
-        confirm < hit ? print('hit') : print('critical hit');
+        final confirm = attackRoller.roll();
+        confirm.totalValue as int < hit
+            ? print(
+                'hit (${attackRoll.toString()}) confirm (${confirm.toString()})')
+            : print(
+                'critical hit (${attackRoll.toString()}) confirm (${confirm.toString()})');
         break;
       default:
-        attackRoll < hit ? print('miss') : print('hit');
+        attackRoll.totalValue as int < hit
+            ? print('miss (${attackRoll.toString()})')
+            : print('hit (${attackRoll.toString()})');
     }
   }
 
   // enum die example
-  print('\nSimulating Catan dice game rolls attempting to build a road and a settlement within a single turn:');
-  print('Note: seeded to produce successful build attempt on last roll of turn.');
+  print(
+      '\nSimulating Catan dice game rolls attempting to build a road and a settlement within a single turn:');
+  print(
+      'Note: seeded to produce successful build attempt on last roll of turn.');
   final catanDiceGameDie = EnumDie(CatanDieFace.values);
   final catanDiceRoller =
       DiceRoller().seed(173).withDiceCount(6).withDie(catanDiceGameDie);
@@ -38,12 +48,12 @@ void main() {
 
   while (attempt < maxAttempts) {
     attempt++;
-    final roll = catanDiceRoller.roll().values;
+    final catanDiceRoll = catanDiceRoller.roll();
     var lumber = 0;
     var brick = 0;
     var wool = 0;
     var grain = 0;
-    for (final face in roll) {
+    for (final face in catanDiceRoll.values) {
       switch (face) {
         case CatanDieFace.brick:
           brick++;
@@ -61,24 +71,29 @@ void main() {
       }
     }
     if (lumber > 1 && brick > 1 && wool > 0 && grain > 0) {
-      print('could build a road and a settlement this roll');
+      print('building a road and a settlement this roll');
+      print('(${catanDiceRoll.toString()})');
       built = true;
       break;
     }
     print('could not build a road and a settlement this roll');
+    print('(${catanDiceRoll.toString()})');
   }
   built
       ? print('built road and settlement on roll $attempt')
       : print('had to build something else this turn');
 
-  // int die example - clue carnival dice 4, 5, 5, 5, 6, 6
-  print('\nSimulating 3 rolls of Clue Carnival: The Case of the Missing Prizes die:');
+  // int die example
+  print(
+      '\nSimulating 3 rolls of Clue Carnival: The Case of the Missing Prizes die:');
   print('Note: seeded to produce all 3 distinct movement possibilities.');
   final clueCarnivalDie = IntDie([4, 5, 5, 5, 6, 6]);
   final clueCarnivalRoller = DiceRoller().seed(14).withDie(clueCarnivalDie);
 
   for (int i = 0; i < 3; i++) {
-    print('move ${clueCarnivalRoller.roll().totalValue} spaces');
+    final clueCarnivalRoll = clueCarnivalRoller.roll();
+    print(
+        'move ${clueCarnivalRoll.totalValue} spaces (${clueCarnivalRoll.toString()})');
   }
 
   // string die example
@@ -86,19 +101,20 @@ void main() {
   print('Note: outcomes include both movement and non-movement results.');
   final superMarioPartyBowserDie =
       StringDie(['-3 coins', '-3 coins', '1', '8', '9', '10']);
-  final superMarioPartyBowserRoller =
+  final superMarioPartyBowserDieRoller =
       DiceRoller().withDie(superMarioPartyBowserDie);
   for (int i = 0; i < 5; i++) {
-    final result = superMarioPartyBowserRoller.roll().values.first;
-    switch (result) {
+    final superMarioPartyBowserDieRoll = superMarioPartyBowserDieRoller.roll();
+    switch (superMarioPartyBowserDieRoll.values.first) {
       case '-3 coins':
-        print('lose 3 coins');
+        print('lose 3 coins (${superMarioPartyBowserDieRoll.toString()})');
         break;
       case '1':
-        print('move 1 space');
+        print('move 1 space (${superMarioPartyBowserDieRoll.toString()})');
         break;
       default:
-        print('move $result spaces');
+        print(
+            'move ${superMarioPartyBowserDieRoll.values.first} spaces (${superMarioPartyBowserDieRoll.toString()})');
     }
   }
 }
