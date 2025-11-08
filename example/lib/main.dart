@@ -1,7 +1,9 @@
 import 'package:dice_roller/dice_roller.dart';
 
 void main() {
-  // default dice example - d20 attack rolls # of hits miss/0/1/almost 2/2
+  // default dice example
+  print('\nSimulating 5 D&D-style attack rolls without bonuses or damage calculation:');
+  print('Note: seeded to produce hit, miss, critical hit, and critical miss outcomes.');
   final attackRoller = DiceRoller().seed(30898).withDie(TwentySidedDie());
   const criticalMiss = 1;
   const threat = 20;
@@ -24,8 +26,9 @@ void main() {
     }
   }
 
-  // enum die example - catan dice game rolls enum brick, lumber, wool, grain, ore, or gold
-  // looking to build road and settlement
+  // enum die example
+  print('\nSimulating Catan dice game rolls attempting to build a road and a settlement within a single turn:');
+  print('Note: seeded to produce successful build attempt on last roll of turn.');
   final catanDiceGameDie = EnumDie(CatanDieFace.values);
   final catanDiceRoller =
       DiceRoller().seed(173).withDiceCount(6).withDie(catanDiceGameDie);
@@ -69,6 +72,8 @@ void main() {
       : print('had to build something else this turn');
 
   // int die example - clue carnival dice 4, 5, 5, 5, 6, 6
+  print('\nSimulating 3 rolls of Clue Carnival: The Case of the Missing Prizes die:');
+  print('Note: seeded to produce all 3 distinct movement possibilities.');
   final clueCarnivalDie = IntDie([4, 5, 5, 5, 6, 6]);
   final clueCarnivalRoller = DiceRoller().seed(14).withDie(clueCarnivalDie);
 
@@ -76,7 +81,9 @@ void main() {
     print('move ${clueCarnivalRoller.roll().totalValue} spaces');
   }
 
-  // string die example - bowser super mario party -3 coins, -3 coins, 1, 8, 9, 10
+  // string die example
+  print('\nSimulating 5 rolls of Super Mario Party Bowser die:');
+  print('Note: outcomes include both movement and non-movement results.');
   final superMarioPartyBowserDie =
       StringDie(['-3 coins', '-3 coins', '1', '8', '9', '10']);
   final superMarioPartyBowserRoller =
