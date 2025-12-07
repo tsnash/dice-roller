@@ -1,4 +1,4 @@
-# dice-roller
+# Dice Roller
 
 A Dart library for simulating dice rolls.
 
@@ -10,7 +10,7 @@ To use this package, add `dice_roller` as a dependency in your `pubspec.yaml` fi
 
 ```yaml
 dependencies:
-  dice_roller: ^0.0.1
+  dice_roller: ^0.0.2
 ```
 
 Then, run `dart pub get` (or `flutter pub get` if using Flutter) to install the package.

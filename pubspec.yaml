@@ -1,11 +1,11 @@
 name: dice_roller
 description: Simulate standard and custom dice rolls in Dart/Flutter.
-license: MIT
-version: 0.0.1
-homepage: https://github.com/tsnash/dice-roller
+version: 0.0.2
 repository: https://github.com/tsnash/dice-roller
 issue_tracker: https://github.com/tsnash/dice-roller/issues
-publish_to: 'none' # Prevent accidental publishing to pub.dev
+homepage: https://github.com/tsnash/dice-roller
+documentation: https://github.com/tsnash/dice-roller
+topics: [dice, random, rng]
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
