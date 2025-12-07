@@ -35,7 +35,7 @@ All generated code must adhere to code lint rules detailed in `analysis_options.
 
 ### Commit Message Structure Guidelines
 
-1. The general structure of the first line should conform to `<type>: <description>` while the body and footer have no predetermied format and are up to the personal preference of the author.
+1. The general structure of the first line should conform to `<type>: <description>` while the body and footer have no predetermined format and are up to the personal preference of the author.
 2. Currently there are 3 types to be used that are governed by their impact on the functionality of the project and their visibility to the end user.
     1. feat - introduction of new or updated feature
     2. fix - address a bug or issue by correcting or restoring functionality
