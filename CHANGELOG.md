@@ -1,3 +1,7 @@
+## 0.0.2
+
+- Updated title and version reference.
+
 ## 0.0.1
 
 - Initial version of the dice roller package.
