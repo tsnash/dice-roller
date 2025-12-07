@@ -1,6 +1,8 @@
 ## 0.0.2
-
-- Updated title and version reference.
+- Updated README title and version reference.
+- Removed publish_to restriction in pubspec.yaml.
+- Added documentation URL and topics in pubspec.yaml.
+- Expanded AGENTS.md with commit message structure and lint requirements.
 
 ## 0.0.1
 
