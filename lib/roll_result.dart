@@ -29,6 +29,21 @@ class RollResult<T> {
         'Cannot calculate totalValue because at least one roll value was not numeric');
   }
 
+  /// A map of the counts of each unique roll value.
+  ///
+  /// Returns a sparse map where the keys are the unique dice roll
+  /// faces and the values are the number of times that face was rolled.
+  ///
+  /// Map is lazy generated for memory efficiency.
+  /// If you need to call this multiple times, consider storing the result.
+  Map<T, int> get valueCounts {
+    final counts = <T, int>{};
+    for (final roll in _rolls) {
+      counts[roll] = (counts[roll] ?? 0) + 1;
+    }
+    return counts;
+  }
+
   @override
   int get hashCode => const ListEquality<Object?>().hash(_rolls);
 
