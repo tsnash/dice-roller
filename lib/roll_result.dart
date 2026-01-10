@@ -34,14 +34,14 @@ class RollResult<T> {
   /// Returns a sparse map where the keys are the unique dice roll
   /// faces and the values are the number of times that face was rolled.
   ///
-  /// Map is lazy generated for memory efficiency.
+  /// The map is computed on-demand each time this getter is accessed.
   /// If you need to call this multiple times, consider storing the result.
   Map<T, int> get valueCounts {
     final counts = <T, int>{};
     for (final roll in _rolls) {
       counts[roll] = (counts[roll] ?? 0) + 1;
     }
-    return counts;
+    return Map.unmodifiable(counts);
   }
 
   @override

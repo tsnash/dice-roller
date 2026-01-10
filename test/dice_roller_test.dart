@@ -162,29 +162,25 @@ void main() {
     test('valueCounts is sparse', () {
       final result = RollResult([MyEnum.a, MyEnum.a, MyEnum.a]);
       final counts = result.valueCounts;
-      expect(counts.length, 1);
-      expect(counts[MyEnum.a], 3);
-      expect(counts[MyEnum.b], isNull);
-      expect(counts[MyEnum.c], isNull);
+      expect(counts, {MyEnum.a: 3});
     });
 
     test('valueCounts works for string rolls', () {
       final result = RollResult(['a', 'b', 'a', 'c', 'b', 'a']);
       final counts = result.valueCounts;
-      expect(counts['a'], 3);
-      expect(counts['b'], 2);
-      expect(counts['c'], 1);
-      expect(counts.length, 3);
+      expect(counts, {'a': 3, 'b': 2, 'c': 1});
     });
 
     test('valueCounts works for enum rolls', () {
       final result = RollResult(
           [MyEnum.a, MyEnum.b, MyEnum.a, MyEnum.c, MyEnum.b, MyEnum.a]);
       final counts = result.valueCounts;
-      expect(counts[MyEnum.a], 3);
-      expect(counts[MyEnum.b], 2);
-      expect(counts[MyEnum.c], 1);
-      expect(counts.length, 3);
+      expect(counts, {MyEnum.a: 3, MyEnum.b: 2, MyEnum.c: 1});
+    });
+
+    test('valueCounts is immutable', () {
+      final result = RollResult([1, 2, 3]);
+      expect(() => result.valueCounts[1] = 99, throwsUnsupportedError);
     });
   });
 

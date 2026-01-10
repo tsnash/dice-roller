@@ -49,11 +49,12 @@ void main() {
   while (attempt < maxAttempts) {
     attempt++;
     final catanDiceRoll = catanDiceRoller.roll();
-    final catanDiceRollValueCounts = catanDiceRoll.valueCounts;
-    var lumber = catanDiceRollValueCounts[CatanDieFace.lumber] ?? 0;
-    var brick = catanDiceRollValueCounts[CatanDieFace.brick] ?? 0;
-    var wool = catanDiceRollValueCounts[CatanDieFace.wool] ?? 0;
-    var grain = catanDiceRollValueCounts[CatanDieFace.grain] ?? 0;
+    final catanDiceRollValueCounts =
+        catanDiceRoll.valueCounts.filled(catanDiceGameDie);
+    var lumber = catanDiceRollValueCounts[CatanDieFace.lumber]!;
+    var brick = catanDiceRollValueCounts[CatanDieFace.brick]!;
+    var wool = catanDiceRollValueCounts[CatanDieFace.wool]!;
+    var grain = catanDiceRollValueCounts[CatanDieFace.grain]!;
 
     if (lumber > 1 && brick > 1 && wool > 0 && grain > 0) {
       print('building a road and a settlement this roll');
