@@ -5,11 +5,18 @@ import 'package:meta/meta.dart';
 @immutable
 class RollResult<T> {
   final List<T> _rolls;
+  late final Map<T, int> _valueCounts = () {
+    final counts = <T, int>{};
+    for (final roll in _rolls) {
+      counts[roll] = (counts[roll] ?? 0) + 1;
+    }
+    return Map<T, int>.unmodifiable(counts);
+  }();
 
   /// Creates a new [RollResult] with the given rolls.
   ///
   /// The rolls are stored in an unmodifiable list.
-  RollResult(Iterable<T> rolls) : _rolls = List.unmodifiable(rolls);
+  RollResult(Iterable<T> rolls) : _rolls = List<T>.unmodifiable(rolls);
 
   /// The values of the individual rolls.
   ///
@@ -33,16 +40,7 @@ class RollResult<T> {
   ///
   /// Returns a sparse map where the keys are the unique dice roll
   /// faces and the values are the number of times that face was rolled.
-  ///
-  /// The map is computed on-demand each time this getter is accessed.
-  /// If you need to call this multiple times, consider storing the result.
-  Map<T, int> get valueCounts {
-    final counts = <T, int>{};
-    for (final roll in _rolls) {
-      counts[roll] = (counts[roll] ?? 0) + 1;
-    }
-    return Map.unmodifiable(counts);
-  }
+  Map<T, int> get valueCounts => _valueCounts;
 
   @override
   int get hashCode => const ListEquality<Object?>().hash(_rolls);

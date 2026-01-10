@@ -182,6 +182,11 @@ void main() {
       final result = RollResult([1, 2, 3]);
       expect(() => result.valueCounts[1] = 99, throwsUnsupportedError);
     });
+
+    test('valueCounts returns empty map for no rolls', () {
+      final result = RollResult<int>([]);
+      expect(result.valueCounts, isEmpty);
+    });
   });
 
   group('Die', () {
