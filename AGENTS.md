@@ -14,6 +14,7 @@ Before finalizing any feature or publishing a new version, the agent must perfor
 1.  **Run Tests:** Execute all unit and integration tests with `dart test` and ensure they all pass.
 1.  **Verify README:** Confirm that any mentioned functionality or instructions are up to date and accurate in the `README.md` file.
 1.  **Verify LICENSE:** Confirm existence of valid `LICENSE` file.
+1.  **Verify CHANGELOG:** Confirm changes are represented in the `CHANGELOG.md` file.
 1.  **Check Pub Points:** Carefully use `pana` to calculate pub points of the package. The agent must report the results and address any suggestions or failures.
     1. Copy the directory holding the package to a temporary one because `pana` will make modifications to it, e.g.
     ```bash
@@ -27,7 +28,7 @@ Before finalizing any feature or publishing a new version, the agent must perfor
     ```bash
     dart pub global run pana ~/tmp/mypkg
     ```
-1.  **Verify Version:** Ensure the version in `pubspec.yaml` has been updated appropriately for the changes being published.
+1.  **Verify Version:** Ensure the version in `pubspec.yaml` has been updated appropriately for the changes being published. Confirm that the latest version in the `CHANGELOG.md` file matches the version in `pubspec.yaml`.
 
 ### Code Generation
 
