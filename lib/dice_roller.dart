@@ -9,6 +9,7 @@ export 'src/int_die.dart';
 export 'src/string_die.dart';
 export 'src/enum_die.dart';
 export 'src/default_dice.dart';
+export 'src/extensions.dart';
 
 /// A class that simulates rolling dice.
 ///

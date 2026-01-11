@@ -1,3 +1,7 @@
+## 0.1.0
+- Added `valueCounts` property to `RollResult` to retrieve a map of roll frequencies.
+- Added `filled` extension method on `Map<T, int>` to populate missing die faces in a frequency map.
+
 ## 0.0.2
 - Updated README title and version reference.
 - Removed publish_to restriction in pubspec.yaml.
