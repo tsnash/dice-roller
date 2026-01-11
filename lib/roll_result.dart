@@ -16,6 +16,8 @@ class RollResult<T> {
   /// The values of the individual rolls.
   ///
   /// Returns an unmodifiable list.
+  ///
+  /// The order of values matches the order of the rolls provided to the constructor.
   List<T> get values => _rolls;
 
   /// The sum of the values of the rolls.
