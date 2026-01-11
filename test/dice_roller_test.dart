@@ -239,6 +239,20 @@ void main() {
       final filled = counts.filled(die);
       expect(() => filled[2] = 5, throwsUnsupportedError);
     });
+
+    test('filled does not modify original map', () {
+      final die = SixSidedDie();
+      final counts = {1: 4};
+      counts.filled(die);
+      expect(counts, {1: 4});
+    });
+
+    test('filled preserves existing keys', () {
+      final die = StringDie(['D', 'E', 'F']);
+      final counts = {'A': 2, 'B': 3, 'C': 1};
+      final filled = counts.filled(die);
+      expect(filled, {'A': 2, 'B': 3, 'C': 1, 'D': 0, 'E': 0, 'F': 0});
+    });
   });
 }
 
