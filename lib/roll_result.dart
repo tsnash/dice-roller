@@ -5,13 +5,8 @@ import 'package:meta/meta.dart';
 @immutable
 class RollResult<T> {
   final List<T> _rolls;
-  late final Map<T, int> _valueCounts = () {
-    final counts = <T, int>{};
-    for (final roll in _rolls) {
-      counts[roll] = (counts[roll] ?? 0) + 1;
-    }
-    return Map<T, int>.unmodifiable(counts);
-  }();
+  late final Map<T, int> _valueCounts = Map<T, int>.unmodifiable(
+      _rolls.groupFoldBy<T, int>((roll) => roll, (prev, _) => (prev ?? 0) + 1));
 
   /// Creates a new [RollResult] with the given rolls.
   ///
