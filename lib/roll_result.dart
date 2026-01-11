@@ -5,15 +5,19 @@ import 'package:meta/meta.dart';
 @immutable
 class RollResult<T> {
   final List<T> _rolls;
+  late final Map<T, int> _valueCounts = UnmodifiableMapView(
+      _rolls.groupFoldBy<T, int>((roll) => roll, (prev, _) => (prev ?? 0) + 1));
 
   /// Creates a new [RollResult] with the given rolls.
   ///
   /// The rolls are stored in an unmodifiable list.
-  RollResult(Iterable<T> rolls) : _rolls = List.unmodifiable(rolls);
+  RollResult(Iterable<T> rolls) : _rolls = List<T>.unmodifiable(rolls);
 
   /// The values of the individual rolls.
   ///
   /// Returns an unmodifiable list.
+  ///
+  /// The order of values matches the order of the rolls provided to the constructor.
   List<T> get values => _rolls;
 
   /// The sum of the values of the rolls.
@@ -28,6 +32,12 @@ class RollResult<T> {
     throw UnsupportedError(
         'Cannot calculate totalValue because at least one roll value was not numeric');
   }
+
+  /// A map of the counts of each unique roll value.
+  ///
+  /// Returns a sparse map where the keys are the unique dice roll
+  /// faces and the values are the number of times that face was rolled.
+  Map<T, int> get valueCounts => _valueCounts;
 
   @override
   int get hashCode => const ListEquality<Object?>().hash(_rolls);

@@ -149,6 +149,44 @@ void main() {
       final r = RollResult(['a', 'b']);
       expect(r.toString(), isNot(contains('totalValue')));
     });
+
+    test('valueCounts returns correct counts', () {
+      final result = RollResult([1, 2, 2, 3, 3, 3]);
+      final counts = result.valueCounts;
+      expect(counts[1], 1);
+      expect(counts[2], 2);
+      expect(counts[3], 3);
+      expect(counts.length, 3);
+    });
+
+    test('valueCounts is sparse', () {
+      final result = RollResult([MyEnum.a, MyEnum.a, MyEnum.a]);
+      final counts = result.valueCounts;
+      expect(counts, {MyEnum.a: 3});
+    });
+
+    test('valueCounts works for string rolls', () {
+      final result = RollResult(['a', 'b', 'a', 'c', 'b', 'a']);
+      final counts = result.valueCounts;
+      expect(counts, {'a': 3, 'b': 2, 'c': 1});
+    });
+
+    test('valueCounts works for enum rolls', () {
+      final result = RollResult(
+          [MyEnum.a, MyEnum.b, MyEnum.a, MyEnum.c, MyEnum.b, MyEnum.a]);
+      final counts = result.valueCounts;
+      expect(counts, {MyEnum.a: 3, MyEnum.b: 2, MyEnum.c: 1});
+    });
+
+    test('valueCounts is immutable', () {
+      final result = RollResult([1, 2, 3]);
+      expect(() => result.valueCounts[1] = 99, throwsUnsupportedError);
+    });
+
+    test('valueCounts returns empty map for no rolls', () {
+      final result = RollResult<int>([]);
+      expect(result.valueCounts, isEmpty);
+    });
   });
 
   group('Die', () {
@@ -177,6 +215,43 @@ void main() {
       test('${die.runtimeType} has $len faces', () {
         expect(die.faces, equals(List.generate(len, (i) => i + 1)));
       });
+    });
+  });
+
+  group('MapUtils', () {
+    test('filled populates missing keys with 0', () {
+      final die = SixSidedDie();
+      final counts = {1: 5, 6: 2};
+      final filled = counts.filled(die);
+      expect(filled, {1: 5, 2: 0, 3: 0, 4: 0, 5: 0, 6: 2});
+    });
+
+    test('filled works with custom dice types', () {
+      final die = StringDie(['A', 'B']);
+      final counts = {'A': 1};
+      final filled = counts.filled(die);
+      expect(filled, {'A': 1, 'B': 0});
+    });
+
+    test('filled returns unmodifiable map', () {
+      final die = SixSidedDie();
+      final counts = {1: 3};
+      final filled = counts.filled(die);
+      expect(() => filled[2] = 5, throwsUnsupportedError);
+    });
+
+    test('filled does not modify original map', () {
+      final die = SixSidedDie();
+      final counts = {1: 4};
+      counts.filled(die);
+      expect(counts, {1: 4});
+    });
+
+    test('filled drops keys missing from die', () {
+      final die = StringDie(['D', 'E', 'F']);
+      final counts = {'A': 2, 'B': 3, 'C': 1};
+      final filled = counts.filled(die);
+      expect(filled, {'D': 0, 'E': 0, 'F': 0});
     });
   });
 }

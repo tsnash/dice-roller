@@ -11,6 +11,8 @@ abstract class Die<T> {
   /// Creates a die with the given faces.
   ///
   /// A die must have at least two faces.
+  ///
+  /// Throws [ArgumentError] if [faces] has fewer than two elements.
   Die(Iterable<T> faces) : _faces = List<T>.unmodifiable(faces) {
     if (_faces.length < 2) {
       throw ArgumentError.value(
@@ -22,6 +24,8 @@ abstract class Die<T> {
   }
 
   /// The faces of the die.
+  ///
+  /// Returns an unmodifiable list.
   List<T> get faces => _faces;
 
   @override
