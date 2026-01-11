@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 @immutable
 class RollResult<T> {
   final List<T> _rolls;
-  late final Map<T, int> _valueCounts = Map<T, int>.unmodifiable(
+  late final Map<T, int> _valueCounts = UnmodifiableMapView(
       _rolls.groupFoldBy<T, int>((roll) => roll, (prev, _) => (prev ?? 0) + 1));
 
   /// Creates a new [RollResult] with the given rolls.

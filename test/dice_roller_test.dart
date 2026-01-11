@@ -232,6 +232,13 @@ void main() {
       final filled = counts.filled(die);
       expect(filled, {'A': 1, 'B': 0});
     });
+
+    test('filled returns unmodifiable map', () {
+      final die = SixSidedDie();
+      final counts = {1: 3};
+      final filled = counts.filled(die);
+      expect(() => filled[2] = 5, throwsUnsupportedError);
+    });
   });
 }
 

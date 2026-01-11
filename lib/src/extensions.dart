@@ -14,6 +14,6 @@ extension MapUtils<T> on Map<T, int> {
     for (final face in die.faces) {
       filledMap[face] = this[face] ?? 0;
     }
-    return filledMap;
+    return Map.unmodifiable(filledMap);
   }
 }
