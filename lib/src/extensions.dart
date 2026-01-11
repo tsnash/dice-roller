@@ -13,8 +13,8 @@ extension MapUtils<T> on Map<T, int> {
   ///
   /// The returned map is unmodifiable while the original map is untouched.
   ///
-  /// This method does not guard against filling in faces that were not
-  /// present in the original die.
+  /// Note: This method does not validate that this map's keys originated from the provided die.
+  /// It will transform any Map&lt;T, int&gt; according to the faces of the given die.
   Map<T, int> filled(final Die<T> die) {
     final filledMap = <T, int>{};
     for (final face in die.faces) {
