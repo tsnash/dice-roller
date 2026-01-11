@@ -10,7 +10,7 @@ To use this package, add `dice_roller` as a dependency in your `pubspec.yaml` fi
 
 ```yaml
 dependencies:
-  dice_roller: ^0.0.2
+  dice_roller: ^0.1.0
 ```
 
 Then, run `dart pub get` (or `flutter pub get` if using Flutter) to install the package.
