@@ -247,11 +247,11 @@ void main() {
       expect(counts, {1: 4});
     });
 
-    test('filled preserves existing keys', () {
+    test('filled drops keys missing from die', () {
       final die = StringDie(['D', 'E', 'F']);
       final counts = {'A': 2, 'B': 3, 'C': 1};
       final filled = counts.filled(die);
-      expect(filled, {'A': 2, 'B': 3, 'C': 1, 'D': 0, 'E': 0, 'F': 0});
+      expect(filled, {'D': 0, 'E': 0, 'F': 0});
     });
   });
 }
